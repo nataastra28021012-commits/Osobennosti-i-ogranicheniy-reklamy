@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Требования к рекламной информации</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    :root {
+      --ink: #172033;
+      --muted: #596579;
+      --surface: #ffffff;
+      --panel: #f4f6f8;
+      --border: #d9e1ec;
+      --accent: #2fba7c;
+      --accent-dark: #27a970;
+      --focus: #ff9e1b;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--ink);
+      background: #ffffff;
+      font: 18px/1.5 Inter, Arial, sans-serif;
+    }
+
+    .interactive {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 48px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: 0 16px 36px rgba(23, 32, 51, .12);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tab, .subtab {
+      border: 2px solid var(--accent);
+      border-radius: 14px;
+      cursor: pointer;
+      font: 700 18px/1.5 Inter, Arial, sans-serif;
+      text-align: center;
+      transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 92px;
+      padding: 16px;
+      color: #ffffff;
+      background: var(--accent);
+    }
+
+    .tab:hover, .tab.is-active {
+      transform: translateY(-3px);
+      background: var(--accent-dark);
+      box-shadow: 0 8px 20px rgba(47, 186, 124, .3);
+    }
+
+    .tab:focus-visible, .subtab:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .panel {
+      min-height: 300px;
+      margin-top: 28px;
+      padding: clamp(28px, 4vw, 36px);
+      border-radius: 18px;
+      background: var(--panel);
+    }
+
+    .placeholder { margin: 0; color: var(--muted); }
+    .content[hidden], .subcontent[hidden] { display: none; }
+    .content, .subcontent { animation: appear .25s ease-out; }
+    .content h2, .subcontent h3 { margin: 0 0 20px; font-size: 24px; line-height: 1.5; }
+    .content p, .subcontent p { margin: 0; }
+    .content p + p, .subcontent p + p { margin-top: 20px; }
+    .content > ul { margin: 20px 0; }
+
+    .subtabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0 0 28px;
+    }
+
+    .subtab {
+      min-height: 62px;
+      padding: 12px 10px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .subtab:hover, .subtab.is-active {
+      transform: translateY(-2px);
+      border-color: var(--accent-dark);
+      box-shadow: 0 8px 20px rgba(47, 186, 124, .2);
+    }
+
+    .subcontent h3 { margin: 0 0 20px; color: #111827; font-size: 18px; }
+    .label { margin-bottom: 20px !important; font-weight: 700; }
+    ul { margin: 20px 0; padding-left: 1.3em; }
+    li { margin: 8px 0; }
+    li::marker { color: var(--accent); }
+
+    .subcontent-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 26px;
+    }
+
+    .info-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 20px;
+      border: 1px solid #dce5f0;
+      border-radius: 12px;
+      background: #f8fafc;
+      gap: 14px;
+    }
+
+    .info-card__heading {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .info-card__list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding-left: 1.3em;
+      list-style: disc;
+    }
+
+    .info-card__list li {
+      margin: 0;
+      padding-left: 0;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .info-card__list li::marker { color: var(--accent); }
+    .info-card__note { margin: 0 !important; font-size: 18px; line-height: 1.5; }
+
+    @media (max-width: 700px) {
+      .subcontent-layout { grid-template-columns: 1fr; gap: 16px; }
+      .info-card { min-height: auto; padding: 20px; }
+      .subcontent h3 { font-size: 18px; }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 14px; font-size: 16px; }
+      .tabs { grid-template-columns: 1fr; gap: 8px; }
+      .tab { min-height: 64px; }
+      .subtabs { grid-template-columns: 1fr; }
+      .content h2, .subcontent h3 { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="interactive">
+    <section class="tabs" role="tablist" aria-label="Разделы требований к рекламе">
+      <button class="tab" type="button" role="tab" data-tab="placement" aria-controls="placement" aria-selected="false">Недопустимые особенности размещения рекламной информации</button>
+      <button class="tab" type="button" role="tab" data-tab="restricted" aria-controls="restricted" aria-selected="false">Недопустимая<br>и ограниченная реклама</button>
+      <button class="tab" type="button" role="tab" data-tab="licensing" aria-controls="licensing" aria-selected="false">Лицензирование<br>рекламы</button>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <p class="placeholder" id="placeholder"><em>Нажимай на вкладки, чтобы узнать подробнее</em></p>
+
+      <article class="content" id="placement" data-content="placement" role="tabpanel" hidden>
+        <div class="subtabs" role="tablist" aria-label="Особенности размещения">
+          <button class="subtab" type="button" role="tab" data-subtab="names" aria-controls="names" aria-selected="false">Названия</button>
+          <button class="subtab" type="button" role="tab" data-subtab="addresses" aria-controls="addresses" aria-selected="false">Адреса</button>
+          <button class="subtab" type="button" role="tab" data-subtab="categories" aria-controls="categories" aria-selected="false">Рубрики</button>
+        </div>
+        <p class="placeholder" id="subplaceholder"><em>Нажми на каждый подраздел, чтобы узнать подробнее</em></p>
+
+        <article class="subcontent" id="names" data-subcontent="names" role="tabpanel" hidden>
+          <div class="subcontent-layout">
+            <section class="info-card info-card--check">
+              <p class="info-card__heading">Не следует использовать</p>
+              <ul class="info-card__list">
+                <li>обобщающие слова;</li>
+                <li>ВН, добавляющие услуги, которых нет у компании;</li>
+                <li>длинные и неинформативные расширения, утяжеляющие название.</li>
+              </ul>
+              <p class="info-card__note"><strong>Особенно важно:</strong> если слова из расширения уже содержатся в ключевых словах (КС) рубрик, добавлять их в название не нужно.</p>
+            </section>
+            <section class="info-card info-card--impact">
+              <p class="info-card__heading">Влияние на пользователей</p>
+              <ul class="info-card__list">
+                <li>нарушают логику поиска, особенно при добавлении лишних вариантов названия.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <article class="subcontent" id="addresses" data-subcontent="addresses" role="tabpanel" hidden>
+          <div class="subcontent-layout">
+            <section class="info-card info-card--check">
+              <p class="info-card__heading">Необходимо проверять и исключать</p>
+              <ul class="info-card__list">
+                <li>адреса партнёров;</li>
+                <li>фиктивные адреса;</li>
+                <li>адреса компаний из геозависимых рубрик, если компания фактически по этому адресу<br>не принимает клиентов: например, эвакуаторы, системное администрирование, пункты выдачи интернет-магазинов и другие.</li>
+              </ul>
+            </section>
+            <section class="info-card info-card--impact">
+              <p class="info-card__heading">Влияние на пользователей</p>
+              <ul class="info-card__list">
+                <li>дезориентируют: человек приходит по адресу, а компании там нет;</li>
+                <li>создают ложное впечатление, что по одному адресу работают разные компании,<br>хотя фактически это одна организация;</li>
+                <li>искусственно увеличивают базу, тогда как ценность продукта — в достоверном<br>и полезном контенте.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <article class="subcontent" id="categories" data-subcontent="categories" role="tabpanel" hidden>
+          <div class="subcontent-layout">
+            <section class="info-card info-card--check">
+              <p class="info-card__note"><strong>Важно своевременно корректировать рубрики и не допускать размещения компании<br>в популярной, но неподходящей категории.</strong> Частые примеры:</p>
+              <ul class="info-card__list">
+                <li>кафе и рестораны добавляют себе нерелевантные рубрики;</li>
+                <li>агентства недвижимости указывают рубрики новостроек;</li>
+                <li>сайты-агрегаторы пытаются размещаться в рубриках конкретных направлений;</li>
+                <li>торговые центры добавляют рубрики отдельных направлений и услуг и т. д.</li>
+              </ul>
+              <p class="info-card__note">Иногда компания просит заменить рубрику, чтобы разместить недопустимую сферу деятельности. Такие случаи нужно проверять особенно внимательно.</p>
+            </section>
+            <section class="info-card info-card--impact">
+              <p class="info-card__heading">Влияние на пользователей</p>
+              <ul class="info-card__list">
+                <li><strong>ухудшают результаты поиска</strong>: карточка показывается по нерелевантным запросам<br>и может не появляться там, где пользователь действительно ищет её услуги;</li>
+                <li><strong>заставляют тратить время</strong>: возникают лишние переходы в карточку, звонки, сообщения<br>и поездки по неподходящему адресу;</li>
+                <li><strong>снижают доверие к карточке и 2ГИС</strong>: несоответствие рубрики описанию, сайту, фотографиям и услугам воспринимается как ошибка или попытка манипулировать выдачей;</li>
+                <li><strong>провоцируют негативные отзывы и исправления</strong>: пользователи могут жаловаться<br>на недостоверную информацию, особенно если ошибка привела к напрасному визиту;</li>
+                <li><strong>усложняют сравнение организаций</strong>: пользователь сравнивает карточку с компаниями<br>другого профиля и не может корректно оценить услуги;</li>
+                <li><strong>искажают рекомендации</strong>: нерелевантные просмотры и быстрые выходы из карточки<br>могут давать системе ошибочные сигналы о пользовательском интересе.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+      </article>
+
+      <article class="content" id="licensing" data-content="licensing" role="tabpanel" hidden>
+        <p><strong>Для ряда сфер действуют требования законодательства о рекламе</strong>.<br>Например, лицензия обязательна для размещения в рубриках, связанных с:</p>
+        <ul>
+          <li>медицинскими услугами;</li>
+          <li>микрофинансированием;</li>
+          <li>иными лицензируемыми видами деятельности.</li>
+        </ul>
+        <p><strong>Размещение рекламы таких компаний без лицензии может повлечь юридические риски.</strong></p>
+        <p><strong>Также есть сферы, реклама которых разрешена только при соблюдении специальных требований закона о рекламе.</strong> В таких случаях нужно проверять наличие обязательных документов, предупреждений и ограничений в рекламных материалах. Более подробно о таких случаях описано в документе — «Редационная политика» (для каждой страны свой документ, основанный на Законодательстве).</p>
+      </article>
+
+      <article class="content" id="restricted" data-content="restricted" role="tabpanel" hidden>
+        <p class="label">Не допускается реклама следующих товаров и услуг:</p>
+        <ul>
+          <li>оружия;</li>
+          <li>эротических услуг и материалов;</li>
+          <li>помощи призывникам;</li>
+          <li>магнитов для счётчиков;</li>
+          <li>других запрещённых категорий.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.content');
+    const subtabs = document.querySelectorAll('.subtab');
+    const subcontents = document.querySelectorAll('.subcontent');
+    const placeholder = document.getElementById('placeholder');
+    const subplaceholder = document.getElementById('subplaceholder');
+
+    function resetSubtabs() {
+      subtabs.forEach((tab) => {
+        tab.classList.remove('is-active');
+        tab.setAttribute('aria-selected', 'false');
+      });
+      subcontents.forEach((content) => { content.hidden = true; });
+      subplaceholder.hidden = false;
+    }
+
+    function showTab(tabName) {
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.tab === tabName;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+      });
+      contents.forEach((content) => { content.hidden = content.dataset.content !== tabName; });
+      placeholder.hidden = true;
+      if (tabName === 'placement') resetSubtabs();
+    }
+
+    function showSubtab(subtabName) {
+      subtabs.forEach((tab) => {
+        const isActive = tab.dataset.subtab === subtabName;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+      });
+      subcontents.forEach((content) => { content.hidden = content.dataset.subcontent !== subtabName; });
+      subplaceholder.hidden = true;
+    }
+
+    tabs.forEach((tab) => tab.addEventListener('click', () => showTab(tab.dataset.tab)));
+    subtabs.forEach((tab) => tab.addEventListener('click', () => showSubtab(tab.dataset.subtab)));
+  </script>
+</body>
+</html>
